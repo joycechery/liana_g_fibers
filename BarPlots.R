@@ -1,32 +1,36 @@
+#This code generates the barplots in Figure 1 of Chery et al 2021
+
 library(dplyr) 
 library(ggplot2)
 library(ggpubr)
 library(viridis)
 
-data <- read.csv("~/xylary_gfibers.csv", stringsAsFactors = T)
-data$Category <- factor(data$Category,levels = c( "root climber", "tendrilate climber", "stem-twiner"))
+data <- read.csv("~/Desktop/extraxylary_g_fibers.csv", stringsAsFactors = T)
+data$Mechanism <- factor(data$Mechanism,levels = c( "root-climber", "tendril-climber", "stem-twiner"))
 
-data$g.fiber
+data$extraxylary_g_fibers
 df <- data %>%
-  filter(g.fiber %in% c("absent", "present")) %>%
-  group_by(Category, g.fiber, .drop = F) %>%
+  filter(extraxylary_g_fibers %in% c("absent", "present")) %>%
+  group_by(Mechanism, extraxylary_g_fibers, .drop = F) %>%
   summarise(counts = n()) 
 
 
 #two bar charts
-p <- ggplot(df, aes(x = Category, y = counts)) +
+p <- ggplot(df, aes(x = Mechanism, y = counts)) +
   geom_bar(
-    aes(fill = g.fiber),
+    aes(fill = extraxylary_g_fibers),
     colour="black", stat = "identity", position = position_dodge(.95),
     width = 0.7 + geom_text(
-    aes(color= g.fibers, label = counts, group = g.fiber), 
+    aes(color= extraxylary_g_fiberss, label = counts, group = extraxylary_g_fibers), 
     position = position_dodge(0.8),
     vjust = -0.3, size = 4))
+#+geom_text(aes(label=counts), position=position_dodge(width=.09), vjust=.01)
 
-p + scale_fill_brewer(palette = colorBlindGrey8[1,2], direction = -1) +
+
+p + scale_fill_brewer(palette = "Dark2", direction = -1) +
   xlab("Climbing Mechanism") +
   ylab("Count") +
-  ggtitle("Xylary Gelatinous Fibers")  +
+  ggtitle("Extraxylary Gelatinous Fibers")  +
   theme_minimal() +
   theme(legend.position = "top",
         title = element_text(color = "grey20", size = 15, angle = 0, hjust = .5, vjust = .5, face = "bold"),
