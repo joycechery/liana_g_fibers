@@ -1,5 +1,3 @@
-#This code generates the barplots in Figure 1 of Chery et al 2021
-
 library(dplyr) 
 library(ggplot2)
 library(ggpubr)
@@ -21,9 +19,9 @@ p <- ggplot(df, aes(x = Mechanism, y = counts)) +
     aes(fill = extraxylary_g_fibers),
     colour="black", stat = "identity", position = position_dodge(.95),
     width = 0.7 + geom_text(
-    aes(color= extraxylary_g_fiberss, label = counts, group = extraxylary_g_fibers), 
-    position = position_dodge(0.8),
-    vjust = -0.3, size = 4))
+      aes(color= extraxylary_g_fiberss, label = counts, group = extraxylary_g_fibers), 
+      position = position_dodge(0.8),
+      vjust = -0.3, size = 4))
 #+geom_text(aes(label=counts), position=position_dodge(width=.09), vjust=.01)
 
 
@@ -39,4 +37,5 @@ p + scale_fill_brewer(palette = "Dark2", direction = -1) +
         axis.title.x = element_text(color = "grey20", size = 15, angle = 0, hjust = .5, vjust = 0, face = "bold"),
         axis.title.y = element_text(color = "grey20", size = 17, angle = 90, hjust = .5, vjust = .5, face = "bold")) +
   scale_y_continuous(breaks=seq(0,35,5))
+
 
